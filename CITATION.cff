@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use these materials, please cite the paper below and this repository."
+title: "Supplementary materials: Forecasting Visitor Demand from Open AI-Camera Counts and Weather: Lessons from Japan for Saudi Heritage Sites"
+authors:
+  - family-names: Khanzada
+    given-names: Amil
+    affiliation: "University of Fukui"
+  - family-names: Sohail
+    given-names: Mohammed
+    affiliation: "Abu Dhabi University"
+  - family-names: Wasfi
+    given-names: Jana
+    affiliation: "Taibah University"
+  - family-names: Showail
+    given-names: Ahmad
+    affiliation: "Taibah University"
+repository-code: "https://github.com/amilkh/paper-icaisc-supplement"
+preferred-citation:
+  type: conference-paper
+  title: "Forecasting Visitor Demand from Open AI-Camera Counts and Weather: Lessons from Japan for Saudi Heritage Sites"
+  authors:
+    - family-names: Khanzada
+      given-names: Amil
+    - family-names: Sohail
+      given-names: Mohammed
+    - family-names: Wasfi
+      given-names: Jana
+    - family-names: Showail
+      given-names: Ahmad
+  conference:
+    name: "International Conference on Advanced Innovations in Smart Cities (ICAISC 2027)"
+    city: Jeddah
+    country: SA
