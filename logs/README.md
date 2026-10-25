@@ -1,7 +1,7 @@
 # Run record
 
 Clean run of `python reproduce.py --jobs 4` on 25 October 2026 on an Ubuntu box
-(2 vCPU, 4 GB RAM, Python 3.12), 1 h 50 min wall time. `console.txt` holds the
+(2 vCPU, 4 GB RAM, Python 3.12), 63 min wall time. `console.txt` holds the
 full console output, `steps/` one log per analysis step.
 
 Result: 57 of 57 paper items reproduced at the paper's rounding.
