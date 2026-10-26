@@ -79,6 +79,10 @@ def environment():
 def run_step(name, args, py):
     log = LOGS / "steps" / f"{name}.log"
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", MPLBACKEND="Agg")
+    # Override inherited thread counts to reduce BLAS/OpenMP solver variation.
+    for key in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
+                "VECLIB_MAXIMUM_THREADS", "NUMEXPR_NUM_THREADS"):
+        env[key] = "1"
     t0 = time.time()
     say(f"  start  {name}")
     with open(log, "w") as fh:

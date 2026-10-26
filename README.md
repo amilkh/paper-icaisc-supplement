@@ -46,7 +46,8 @@ every regenerated file with the copy in `expected/`. The last line should read
 ## Paper items and where they come from
 
 Each row is one check in `code/check.py`. The value is read from the
-regenerated output file and must round to the number printed in the paper.
+regenerated output file and must round to the number printed in the paper,
+subject to the explicit platform tolerances below.
 "Reproduced" shows the value from our own run (`logs/reproduce.log`).
 Table and figure numbers follow the submitted version (Tables I to IV,
 Figs. 1 to 4).
@@ -169,14 +170,28 @@ byte for byte, except:
 
 No modelling code was changed.
 
-## What can differ on another machine
+## Platform differences
 
 Direct dependencies are pinned, but the BLAS library, operating system and
-fonts are not. On a different platform expect, at most, last-digit
-floating-point differences in the CSV files (the checker reports the largest
-relative difference) and small pixel differences in the figures. PDF figures
-are not compared because they embed creation dates. The paper items are
-checked at the paper's rounding, so they are not affected by such noise.
+fonts are not. Solver results (logistic regression thresholds and SARIMAX
+optimisation) can differ by one unit in the last printed digit across BLAS
+libraries and operating systems; SARIMAX can vary by several tenths of a WAPE
+point. The checker allows these absolute tolerances only:
+
+- Table IV (`T4-1` to `T4-8`): AUC, precision and recall ±0.01; confidence
+  interval bounds retain exact paper rounding.
+- `CB-sarimax`: SARIMAX WAPE ±0.5 points; the accompanying ridge WAPE retains
+  exact paper rounding.
+
+Results requiring these allowances are reported as
+`PASS (within platform tolerance)` and count as reproduced. All other items
+retain exact paper rounding. For an exact match, use Linux with the pinned
+requirements. `reproduce.py` sets BLAS/OpenMP and NumExpr thread counts to 1
+for every step subprocess to reduce numerical variation.
+
+CSV files may have floating-point differences (the checker reports the largest
+relative difference), and figures may have small pixel differences. PDF figures
+are not compared because they embed creation dates.
 
 ## Licence and data
 
