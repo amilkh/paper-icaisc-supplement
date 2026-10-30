@@ -33,7 +33,7 @@ python reproduce.py --jobs 4
 `reproduce.py` verifies the checksums in `data/SHA256SUMS`, runs the 13 analysis
 steps into `out/`, then prints PASS or FAIL for each paper item and compares
 every regenerated file with the copy in `expected/`. The last line should read
-`SUMMARY: 57/57 paper items reproduced`; the exit code is 0 only then.
+`SUMMARY: 59/59 paper items reproduced`; the exit code is 0 only then.
 
 - `--jobs N` runs independent steps in parallel (default 1). Memory use stays
   under about 2 GB.
@@ -51,6 +51,9 @@ subject to the explicit platform tolerances below.
 "Reproduced" shows the value from our own run (`logs/reproduce.log`).
 Table and figure numbers follow the submitted version (Tables I to IV,
 Figs. 1 to 4).
+Rows marked † check numbers that were cut from the final text for space;
+they are kept so that the full faces-versus-plates and peak-hour results
+remain verifiable.
 
 | Paper item | What is checked | Output file | Paper | Reproduced |
 |---|---|---|---|---|
@@ -93,11 +96,11 @@ Figs. 1 to 4).
 | Sec. V-C | three busy-day definitions with forecast weather: AUC range; busy share of test days (30-50%) | `20261013_review_fixes.md` | 0.82 to 0.93; 0.30 to 0.50 | 0.82 to 0.93; 0.30 to 0.50 |
 | Sec. V-C | overflow-lot AUC range over three labels; test days where only faces show lot 2 in use | `20261013_review_fixes.md` | 0.88 to 0.90; 11 | 0.88 to 0.90; 11 |
 | Sec. III, V-C | pooled Rainbow Line gates: valid days, median faces per plate, daily correlation | `20261013_rainbow_faces_plates.md` | 604, 0.32, 0.77 | 604, 0.32, 0.77 |
-| Sec. V-C | rain effect, % per 10 mm: faces, plates | `20261013_rainbow_faces_plates.md` | −43, −37 | -43, -37 |
+| † Sec. V-C | rain effect, % per 10 mm: faces, plates | `20261013_rainbow_faces_plates.md` | −43, −37 | -43, -37 |
 | Sec. V-C | three-day WAPE with forecast weather: faces, plates | `20261013_rainbow_faces_plates.md` | 66, 34 | 65.9, 33.7 |
-| Sec. V-C | three-day busy-day warning AUC with forecast weather: faces, plates | `20261013_rainbow_faces_plates.md` | 0.93, 0.88 | 0.93, 0.88 |
-| Sec. V-C | faces warning: correct flags, busy test days, flagged, precision, recall | `20261017_faces_warning_counts.md` | 43 of 86 busy days, 43 flagged, precision 1.00, recall 0.50 | 43 of 86 busy days, 43 flagged, precision 1.00, recall 0.50 |
-| Sec. V-C | plates warning with forecast weather: precision, recall | `20261017_faces_warning_counts.md` | 0.84, 0.60 | 0.84, 0.60 |
+| † Sec. V-C | three-day busy-day warning AUC with forecast weather: faces, plates | `20261013_rainbow_faces_plates.md` | 0.93, 0.88 | 0.93, 0.88 |
+| † Sec. V-C | faces warning: correct flags, busy test days, flagged, precision, recall | `20261017_faces_warning_counts.md` | 43 of 86 busy days, 43 flagged, precision 1.00, recall 0.50 | 43 of 86 busy days, 43 flagged, precision 1.00, recall 0.50 |
+| † Sec. V-C | plates warning with forecast weather: precision, recall | `20261017_faces_warning_counts.md` | 0.84, 0.60 | 0.84, 0.60 |
 | Sec. III | Tojinbo 2025 detections per official visitor; scaled detections; official visitors | `20261016_data_facts.md` | 5; 3.3 million; 651,000 | 5.05; 3.285746 million; 651,000 |
 | Sec. III | faces as share of detections (Tojinbo, station; about 3-4%); station faces aged 6-12, % | `20261016_data_facts.md` | 0.03, 0.04; 41 | 0.026, 0.043; 40.7% |
 | Sec. V-D | 3 days of history, hourly WAPE: ridge and same-hour-last-week at station; ridge and baseline at Tojinbo | `coldstart/cold_start_ci.csv` | 36.2, 27.4; 57.9, 43.8 | 36.22, 27.38; 57.86, 43.78 |
@@ -106,8 +109,10 @@ Figs. 1 to 4).
 | Sec. V-D | Tojinbo, 3 days: shrunk minus baseline, points [95% CI] | `coldstart/cold_start_ci.csv` | −1.2 [−2.1, −0.4] | -1.21 [-2.15, -0.42] |
 | Sec. V-D | station, 56 days: 95% interval of shrunk minus baseline, points | `coldstart/cold_start_ci.csv` | [−6.3, +1.0] | [-6.3, 1.0] |
 | Sec. V-D | Tojinbo, 28 days: shrunk minus baseline, points | `coldstart/cold_start_ci.csv` | −10.1 | -10.08 |
-| Sec. V-D | best hourly peak F1: station (about 0.4), Tojinbo (about 0.6) | `coldstart/cold_start_peak_f1.csv` | 0.4, 0.6 | 0.429, 0.628 |
-| Sec. VII | forecast-weather cold start: largest change in shrunk WAPE, points (about one); intervals changing sign | `coldstart/cold_start_ci.csv` | 1; 0 | 1.01; 0 |
+| Sec. V-D | Tojinbo, 28 days, archived day-ahead forecast at test time: shrunk minus baseline, points [95% CI] | `coldstart/cold_start_ci.csv` | −9.7 [−14.7, −5.3] | -9.65 [-14.71, -5.27] |
+| Sec. V-D | 28 days: WAPE reduction from weather in the shrunk model, points: Tojinbo (about 2), station | `coldstart/cold_start_ci.csv` | 2.0, −0.6 | 1.99, -0.62 |
+| † Sec. V-D | best hourly peak F1: station (about 0.4), Tojinbo (about 0.6) | `coldstart/cold_start_peak_f1.csv` | 0.4, 0.6 | 0.429, 0.628 |
+| Sec. V-D | forecast-weather cold start (gains barely move): largest change in shrunk WAPE, points (about one); intervals changing sign | `coldstart/cold_start_ci.csv` | 1; 0 | 1.01; 0 |
 | 2 | figure             regenerated as out/figures/daily_counts.png | `out/figures/daily_counts.png` | figure | pixel-identical |
 | 3 | figure             regenerated as out/figures/lead_time_wape.png | `out/figures/lead_time_wape.png` | figure | pixel-identical |
 | 4 | figure             regenerated as out/coldstart/cold_start.png | `out/coldstart/cold_start.png` | figure | identical up to canvas size |

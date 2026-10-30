@@ -335,6 +335,13 @@ def items():
         lambda out: f"[{ci(out, 'fukui_station', 56)['ci_lo_pp']}, {ci(out, 'fukui_station', 56)['ci_hi_pp']}]", "[−6.3, +1.0]")
     add("CS-toj28", "Sec. V-D", "Tojinbo, 28 days: shrunk minus baseline, points", CI,
         lambda out: ci(out, "tojinbo", 28)["blend_minus_naive_pp"], "−10.1")
+    add("CS-toj28-fcst", "Sec. V-D", "Tojinbo, 28 days, archived day-ahead forecast at test time: shrunk minus baseline, points [95% CI]", CI,
+        lambda out: f"{ci(out, 'tojinbo', 28, 'blend_fcst')['blend_minus_naive_pp']} [{ci(out, 'tojinbo', 28, 'blend_fcst')['ci_lo_pp']}, {ci(out, 'tojinbo', 28, 'blend_fcst')['ci_hi_pp']}]",
+        "−9.7 [−14.7, −5.3]")
+    add("CS-wx28", "Sec. V-D", "28 days: WAPE reduction from weather in the shrunk model (no-weather minus with-weather), points: Tojinbo (about 2), station", CI,
+        lambda out: f"{float(ci(out, 'tojinbo', 28, 'blend_noweather')['wape_blend']) - float(ci(out, 'tojinbo', 28)['wape_blend']):.2f}, "
+                    f"{float(ci(out, 'fukui_station', 28, 'blend_noweather')['wape_blend']) - float(ci(out, 'fukui_station', 28)['wape_blend']):.2f}",
+        "2.0, −0.6")
 
     def f(out):
         best = {}
@@ -350,7 +357,7 @@ def items():
                     or (float(ci(out, r["node"], r["history_days"], "blend_fcst")["ci_hi_pp"]) < 0) != (float(r["ci_hi_pp"]) < 0)
                     for r in csv_rows(out, CI) if r["variant"] == "blend")
         return f"{max(d):.2f}; {flips}"
-    add("CS-fcst", "Sec. VII", "forecast-weather cold start: largest change in shrunk WAPE, points (about one); intervals changing sign",
+    add("CS-fcst", "Sec. V-D", "forecast-weather cold start (gains barely move): largest change in shrunk WAPE, points (about one); intervals changing sign",
         CI, f, "1; 0")
     return L
 
